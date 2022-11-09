@@ -22,7 +22,6 @@ const BudgetCard = styled.article`
   background-color: #fff;
   height: 200px;
   width: 100%;
-  box-shadow: 0 .1rem .1rem rgb(0, 0, 0, .2), 0 .25rem .5rem rgb(0, 0, 0, .1);
 `;
 
 const Img = styled.img`
@@ -47,52 +46,51 @@ const BudgetRequest = (props) => {
       threshold: 1.0
     });
 
-    console.log(loadingRef.current)
     if (loadingRef.current)
       observer.observe(loadingRef.current);
   }, []);
 
   return (
-      <section>
-        <h4 className="mb-5">Pedidos de orçamento</h4>
-        <GridContainer>
-          {
-            budgets.map((budget, i) => (
-              <BudgetCard key={i}>
-                <div className="d-flex justify-content-between bg-light h-100 w-100 p-2">
-                  <Img src={MockupFront} alt="" />
-                  <Img src={MockupBack} alt="" />
+    <section>
+      <h4 className="mb-5">Pedidos de orçamento</h4>
+      <GridContainer>
+        {
+          budgets.map((budget, i) => (
+            <BudgetCard key={i} className="card-shadow">
+              <div className="d-flex justify-content-between bg-light h-100 w-100 p-2">
+                <Img src={MockupFront} alt="" />
+                <Img src={MockupBack} alt="" />
+              </div>
+              <div className="d-flex flex-column h-100 w-100 p-2">
+                <div style={{ flex: 1 }}>
+                  <strong>Cliente:&nbsp;</strong>
+                  Geefi<br/>
+                  <strong>Telefone:&nbsp;</strong>
+                  67 9 8451-0819<br/>
+                  <strong>Email:&nbsp;</strong>
+                  geefi@gmail.com
                 </div>
-                <div className="d-flex flex-column h-100 w-100 p-2">
-                  <div style={{ flex: 1 }}>
-                    <strong>Cliente:&nbsp;</strong>
-                    Geefi<br/>
-                    <strong>Telefone:&nbsp;</strong>
-                    67 9 8451-0819<br/>
-                    <strong>Email:&nbsp;</strong>
-                    geefi@gmail.com
-                  </div>
-                  <div className="d-flex justify-content-center">
-                    <button
-                      className="border-0 py-2 px-3 rounded-pill text-white"
-                      style={{ 
-                        backgroundColor: '#23c660'
-                      }}
-                    >
-                      <FontAwesomeIcon icon={brands('whatsapp')} color="#fff" size="xl" />
-                      <span className="ms-2">Entrar em contato</span>
-                    </button>
-                  </div>
+                <div className="d-flex justify-content-center">
+                  <button
+                    className="border-0 py-2 px-3 rounded-pill text-white"
+                    style={{ 
+                      backgroundColor: '#23c660'
+                    }}
+                  >
+                    <FontAwesomeIcon icon={brands('whatsapp')} color="#fff" size="xl" />
+                    <span className="ms-2">Entrar em contato</span>
+                  </button>
                 </div>
-              </BudgetCard>
-            ))
-          }
-          
-        </GridContainer>
-        <div ref={loadingRef} className='d-flex justify-content-center mt-4'>
-          <div className="spinner-border mx-auto" />
-        </div>
-      </section>
+              </div>
+            </BudgetCard>
+          ))
+        }
+        
+      </GridContainer>
+      <div ref={loadingRef} className='d-flex justify-content-center mt-4'>
+        <div className="spinner-border mx-auto" />
+      </div>
+    </section>
       
   );
 };

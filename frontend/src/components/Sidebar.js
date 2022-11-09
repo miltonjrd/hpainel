@@ -1,5 +1,6 @@
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDollarSign, faShirt } from '@fortawesome/free-solid-svg-icons'
+import { faDollarSign, faShirt, faDoorOpen } from '@fortawesome/free-solid-svg-icons'
 import styled from "styled-components";
 
 const Aside = styled.aside`
@@ -21,18 +22,26 @@ const NavList = styled.ul`
   list-style: none;
 
   li {
-    display: flex;
-    color: #fff;
-    padding: 1rem 2rem;
-    cursor: pointer;
+    a, button {
+      display: flex;
+      align-items: center;
+      background-color: #242423;
+      color: #fff;
+      width: 100%;
+      padding: 1rem 2rem;
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
 
-    :hover {
-      background-color: #1a1a19;
+      :hover {
+        background-color: #1a1a19;
+      }
     }
   }
 `;
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   
   return (
     <Aside>
@@ -46,22 +55,38 @@ const Sidebar = () => {
             [
               {
                 title: 'Pedidos de orçamento',
-                icon: faDollarSign
+                icon: faDollarSign,
+                to: 'budgets'
               },
               {
                 title: 'Modelos',
-                icon: faShirt
+                icon: faShirt,
+                to: 'templates'
               }
-            ]
-            .map(option => (
-              <li>
-                <div className="d-flex justify-content-center align-items-center" style={{ width: '20px' }}>
-                  <FontAwesomeIcon icon={option.icon} color="#fff" style={{ margin: '0 auto' }} />
-                </div>
-                <span className="ms-3">{option.title}</span>
+            ].map((option, i) => (
+              <li key={i}>
+                <Link to={option.to}>
+                  <div className="d-flex justify-content-center align-items-center" style={{ width: '20px' }}>
+                    <FontAwesomeIcon icon={option.icon} color="#fff" style={{ margin: '0 auto' }} />
+                  </div>
+                  <span className="ms-3">{option.title}</span>
+                </Link>
               </li>
             ))
           }
+          <li>
+            <button 
+              onClick={() => {
+                sessionStorage.removeItem('authorization');
+                navigate('/login');
+              }}
+            >
+              <div className="d-flex justify-content-center align-items-center" style={{ width: '20px' }}>
+                <FontAwesomeIcon icon={faDoorOpen} color="#fff" style={{ margin: '0 auto' }} />
+              </div>
+              <span className="ms-3">Sair</span>
+            </button>
+          </li>
         </NavList>
       </nav>
     </Aside>
